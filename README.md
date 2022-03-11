@@ -180,12 +180,12 @@ The [ResizableController] can be instantiated with some parameters.
 
 ```dart
 final resizableController = ResizableController(
-  sizeSeparator: 600, // Optional
+  sizeSeparator: 300, // Optional
   splitDirection: Axis.vertical,
 );
 ```
 
-![splitDirection example](https://user-images.githubusercontent.com/58062436/157975300-304f111b-3f04-4cbe-b991-51b29d227329.png)
+![splitDirection example](https://user-images.githubusercontent.com/58062436/157986178-36781e58-8940-45b0-8d20-876c84c90979.gif)
 
 
 ### ResizableController methods
