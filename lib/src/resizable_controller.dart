@@ -28,7 +28,10 @@ class ResizableController extends ChangeNotifier {
   double get resizableBarThickness => 10;
   bool get _isHorizontal => splitDirection == Axis.horizontal;
 
-  /// The maximum available size for both screens (size - resizableBarThickness).
+  /// The maximum available size for both screens.
+  /// 
+  /// * If is showing both screens: maxSize = size - resizableBarThickness;
+  /// * If is not showing both screens: maxSize = maxWindowSize.
   double get maxSize => _maxSize;
   late double _maxSize;
   void _setMaxSize(BoxConstraints constraints) {
@@ -48,6 +51,8 @@ class ResizableController extends ChangeNotifier {
   }
 
   bool _firstExec = true;
+
+  /// Used by [ResizableWidget] to calculate the screens size (when resizing the window).
   void calculateSizes({
     required BoxConstraints constraints,
     required ResizableScreen screen1,
@@ -112,6 +117,7 @@ class ResizableController extends ChangeNotifier {
     if (_firstExec) _firstExec = false;
   }
 
+  /// Used by [ResizableWidget] to calculate the screens size (when resizing middle bar).
   void onDragUpdate({
     required DragUpdateDetails drag,
     required ResizableScreen screen1,
@@ -137,9 +143,11 @@ class ResizableController extends ChangeNotifier {
     }
   }
 
-  /// While resizing the screens (not the whole window).
+  /// Return true when resizing the screens (the middle bar resize).
   bool get isResizing => _isResizing;
   bool _isResizing = false;
+
+  /// Used by [ResizableWidget] to set if the middle bar is resizing.
   set isResizing(bool value) {
     if (_isResizing == value) return;
     _isResizing = value;
@@ -163,7 +171,7 @@ class ResizableController extends ChangeNotifier {
   bool get showScreen2 => _showScreen2;
   bool _showScreen2 = true;
 
-  /// Can show/hide screen2 if it has enough space (you can change).
+  /// Cou can use to show/hide the second screen (show only if it has enough space).
   set showScreen2(bool value) {
     if (_showScreen2 == value) return;
     _showScreen2 = value;

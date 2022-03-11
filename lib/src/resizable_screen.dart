@@ -1,6 +1,7 @@
 part of resizable_widget;
 
 class ResizableScreen {
+  /// Used by [ResizableWidget] to set and calculate the screen size.
   late double size;
 
   /// The percent size of the widget used on this screen.
@@ -8,15 +9,20 @@ class ResizableScreen {
   /// The main widget will only use the screen1 [percentSize].
   double percentSize;
 
+  /// The minimum size the user can resize from this screen.
   final double minSize;
 
-  /// Fix only one screen at a time. Can not be used in both.
+  /// Used to fix the screen size when resizing the window (not the middle bar).
+  /// 
+  /// Fix only one screen at a time. Can not be used in both screens.
   final bool fixedSizeWhenResizingWindow;
+
+  /// Called to obtain the child widget and build this screen.
   final Widget Function() screenBuilder;
 
-  /// Use it to navigate: [key.currentContext].
+  /// Use it to get this screen key/context and navigate: [key.currentContext].
   /// 
-  /// Ex: Navigator.push(key.currentContext, ...);
+  /// Ex: Navigator.push(key.currentContext!, ...);
   final GlobalKey<NavigatorState> key;
 
   /// The initial value for the screen size.
@@ -34,9 +40,11 @@ class ResizableScreen {
         _initialPercentSize = percentSize;
 
   late final double _initialPercentSize;
+
+  /// Used by [ResizableWidget] to get the [percentSize] passed in the constructor.
   double get initialPercentSize => _initialPercentSize;
 
-  /// Use it instead of Navigot.pop(...);
+  /// Prefer use it instead of Navigator.pop(...);
   void pop() {
     if (key.currentState != null && key.currentContext != null) {
       if (key.currentState!.canPop()) {
