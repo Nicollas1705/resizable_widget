@@ -23,7 +23,7 @@ This package provides a widget that splits screen into two parts where these par
 dependencies:
   resizable_widget:
     git:
-      url: git://github.com/Nicollas1705/resizable_widget
+      url: https://github.com/Nicollas1705/resizable_widget
       ref: master
 ```
 
